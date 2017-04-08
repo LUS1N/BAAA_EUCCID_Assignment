@@ -12,22 +12,21 @@ namespace Translator
     {
         public CPR EuCcidToCpr(EUCCID euccid)
         {
-            var cpr = new CPR()
+            return new CPR()
             {
                 FirstName = euccid.ChristianName,
                 Surname = euccid.FamilyName,
                 Address1 = $"{euccid.StreetHouseNumber}, {euccid.ApartmentNumber}",
                 City = euccid.City,
                 PostalCode = PostalcodeLookupService.Lookup(euccid.StreetHouseNumber, euccid.City,
-                    euccid.CurrentCountry)
+                     euccid.CurrentCountry)
             };
 
-            return cpr;
         }
 
         public EUCCID CprToEuccid(CPR cpr)
         {
-            var euCcid = new EUCCID()
+            return new EUCCID()
             {
                 ChristianName = cpr.FirstName,
                 FamilyName = cpr.Surname,
@@ -37,7 +36,6 @@ namespace Translator
                 Gender = GetGenderFromCprNumber(cpr.CprNumber)
             };
 
-            return euCcid;
         }
 
         private string GetGenderFromCprNumber(string cpr)
@@ -55,7 +53,7 @@ namespace Translator
         private string GetAddressWithouthAppartmentNumber(string address)
         {
             var split = address.Split(',');
-            Array.Resize(ref split, split.Length-1);
+            Array.Resize(ref split, split.Length - 1);
             return string.Join(",", split);
         }
     }
