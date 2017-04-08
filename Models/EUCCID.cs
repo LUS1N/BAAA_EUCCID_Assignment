@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Messaging;
 
-namespace EUCCID
+namespace Models
 {
-    class Program
+    public class EUCCID
     {
-        static void Main(string[] args)
-        {
-
-        }
+        
     }
 }
