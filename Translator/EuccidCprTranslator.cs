@@ -18,7 +18,7 @@ namespace Translator
                 Surname = euccid.FamilyName,
                 Address1 = $"{euccid.StreetHouseNumber}, {euccid.ApartmentNumber}",
                 City = euccid.City,
-                CprNumber = GetCprNumberBeginning(euccid.EuCcid),
+                CprNumber = GetCprNumberBeginningAndGender(euccid.EuCcid),
                 PostalCode = PostalcodeLookupService.Lookup(euccid.StreetHouseNumber, euccid.City,
                      euccid.CurrentCountry)
             };
@@ -47,7 +47,7 @@ namespace Translator
             return dayMonth + yearLong;
         }
 
-        private string GetCprNumberBeginning(string euccid)
+        private string GetCprNumberBeginningAndGender(string euccid)
         {
             return euccid.Substring(0, 4) + euccid.Substring(6, 2);
         }
