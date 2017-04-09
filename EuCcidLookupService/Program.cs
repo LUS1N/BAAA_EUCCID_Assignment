@@ -15,12 +15,12 @@ namespace EuCcidLookupService
             var messenger = new Messenger("EU-CCID Lookup service");
             var lookupId = messenger.Receive<string>();
 
-            Console.WriteLine($"EU-CCID Lookup service received request for {lookupId}");
+            Console.WriteLine($"EU-CCID Lookup service received request for {lookupId}\n");
 
             var euccid = Storage.GetUEuccidByNumber(lookupId);
             messenger.Reply(euccid);
 
-            Console.WriteLine($"Replied with: {euccid}");
+            Console.WriteLine($"Replied with:\n{euccid}\n");
         }
     }
 }

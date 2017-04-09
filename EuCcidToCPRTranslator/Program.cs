@@ -15,7 +15,8 @@ namespace EuCcidToCPRTranslator
             var messenger = new Messenger("TranslatorIn", "New CPR Service");
             var euccid = messenger.Receive<EUCCID>();
 
-            Console.WriteLine($"Translator received EU-CCID:\n {euccid}");
+            Console.WriteLine($"Translator received EU-CCID:\n{euccid}\n");
+
             var preliminaryCpr = new Translator.EuccidCprTranslator().EuCcidToCpr(euccid);
             messenger.Send(preliminaryCpr);
 

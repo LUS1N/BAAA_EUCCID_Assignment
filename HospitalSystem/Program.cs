@@ -30,12 +30,13 @@ namespace HospitalSystem
                 EuCcid = "01012017" // to pass on the birthdate
             };
 
-            Console.WriteLine("Hospital sending request.");
+            Console.WriteLine("Hospital sending request.\n");
+
             messenger.Send(preEuccid);
 
             var euccid = messenger.Receive<EUCCID>();
-            Console.WriteLine("Hospital got response:");
-            Console.WriteLine(euccid);
+
+            Console.WriteLine($"Hospital got response:\n{euccid}\n");
         }
     }
 }
