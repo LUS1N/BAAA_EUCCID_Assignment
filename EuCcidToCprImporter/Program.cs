@@ -12,25 +12,27 @@ namespace EuCcidToCprImporter
     {
         static void Main(string[] args)
         {
-            var messenger = new Messenger("EU-CCID Lookup response", "EU-CCID Lookup service");
-
+            // send message with reply address of translator
+            var sendMessenger = new Messenger( "TranslatorIn", "EU-CCID Lookup service");
             var euccidNumber = "09042017-123456";
-            Console.WriteLine($"Import data about EU-CCID: {euccidNumber}");
 
-            messenger.Send(euccidNumber);
-            var euCcid = messenger.Receive<EUCCID>();
+            sendMessenger.Send(euccidNumber);
+            Console.WriteLine($"Import data request sent about EU-CCID: {euccidNumber}");
 
-            Console.WriteLine($"Received data: {euCcid}");
 
-            var preliminaryCpr = new Translator.EuccidCprTranslator().EuCcidToCpr(euCcid);
-            Console.WriteLine($"Translate values into CPR: {preliminaryCpr}");
+            var receiverMessenger = new Messenger("New CPR Service");
+            var prelCpr = receiverMessenger.Receive<PreliminaryCpr>();
 
-            var completeCPR = CPRService.CreateNew(preliminaryCpr, euCcid.Gender);
-            Console.WriteLine($"Generate CPR number to make this CPR complete. Generated CPR number for '{euCcid.Gender}' : {completeCPR.CprNumber}");
+
+            Console.WriteLine($"Received data from translator:\n {prelCpr}");
+
+
+            var completeCPR = CPRService.CreateNew(prelCpr);
+            Console.WriteLine($"Generate CPR number to make this CPR complete. Generated CPR number for '{prelCpr.Gender}' : {completeCPR.CprNumber}");
             
             CprSaver.Save(completeCPR);
 
-            Console.WriteLine();
+            Console.WriteLine(completeCPR);
 
         }
     }

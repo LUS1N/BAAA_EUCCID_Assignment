@@ -9,9 +9,9 @@ namespace EuCcidToCprImporter
 {
     public class CPRService
     {
-        public static CPR CreateNew(CPR cpr, string gender)
+        public static CPR CreateNew(PreliminaryCpr cpr)
         {
-            cpr.CprNumber = GenerateCpr(cpr.CprNumber, gender);
+            cpr.CprNumber = GenerateCpr(cpr.CprNumber, cpr.Gender);
             return cpr;
         }
 
