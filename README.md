@@ -3,5 +3,5 @@
 Code for assignment demonstrating usage of MSQM and Enterprise integration patters.
 
 Paterns used:
--Translator
--Request-Reply
+- Translator
+- Request-Reply
