@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Messaging;
 using Models;
 
-namespace EUCCID
+namespace Tests
 {
     class Program
     {
@@ -40,11 +40,14 @@ namespace EUCCID
                 Gender = "Male"
             };
 
-            var trCpr = new Translator.EuccidCprTranslator().CprToEuccid(cpr);
 
+            Console.WriteLine("CPR to EUCCID");
+            var trCpr = new Translator.EuccidCprTranslator().CprToEuccid(cpr);
             Console.WriteLine(cpr);
             Console.WriteLine(trCpr);
             Console.WriteLine();
+
+            Console.WriteLine("EUCCID to CPR");
             var trEu = new Translator.EuccidCprTranslator().EuCcidToCpr(euccit);
             Console.WriteLine(euccit);
             Console.WriteLine(trEu);

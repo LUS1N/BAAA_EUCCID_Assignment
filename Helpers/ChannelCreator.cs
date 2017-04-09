@@ -10,6 +10,8 @@ namespace Helpers
     {
         public static void CreateChannel(string channelName)
         {
+            if (channelName == null) return;
+
             if (!MessageQueue.Exists(channelName))
                 MessageQueue.Create(channelName);
         }

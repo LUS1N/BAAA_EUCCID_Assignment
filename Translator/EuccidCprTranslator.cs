@@ -22,7 +22,6 @@ namespace Translator
                 PostalCode = PostalcodeLookupService.Lookup(euccid.StreetHouseNumber, euccid.City,
                      euccid.CurrentCountry)
             };
-
         }
 
         public EUCCID CprToEuccid(CPR cpr)
@@ -37,7 +36,6 @@ namespace Translator
                 EuCcid = GetEuccidNumberBeginning(cpr.CprNumber),
                 Gender = GetGenderFromCprNumber(cpr.CprNumber)
             };
-
         }
 
         private string GetEuccidNumberBeginning(string cpr)
@@ -51,7 +49,7 @@ namespace Translator
 
         private string GetCprNumberBeginning(string euccid)
         {
-            return euccid.Substring(0,4) + euccid.Substring(6,2);
+            return euccid.Substring(0, 4) + euccid.Substring(6, 2);
         }
 
         private string GetGenderFromCprNumber(string cpr)
@@ -59,6 +57,7 @@ namespace Translator
             var lastDigit = Int16.Parse(cpr[cpr.Length - 1] + "");
             return lastDigit % 2 == 0 ? "female" : "male";
         }
+
         private string GetApartmentNumberFromCprAddress(string address)
         {
             // each field in CPR address is comma separated
