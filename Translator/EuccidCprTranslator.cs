@@ -8,7 +8,7 @@ using Models;
 
 namespace Translator
 {
-    public class EuccidtoCprTranslator
+    public class EuccidCprTranslator
     {
         public CPR EuCcidToCpr(EUCCID euccid)
         {
@@ -18,6 +18,7 @@ namespace Translator
                 Surname = euccid.FamilyName,
                 Address1 = $"{euccid.StreetHouseNumber}, {euccid.ApartmentNumber}",
                 City = euccid.City,
+                CprNumber = GetCprNumberBeginning(euccid.EuCcid),
                 PostalCode = PostalcodeLookupService.Lookup(euccid.StreetHouseNumber, euccid.City,
                      euccid.CurrentCountry)
             };
@@ -33,14 +34,29 @@ namespace Translator
                 ApartmentNumber = GetApartmentNumberFromCprAddress(cpr.Address1),
                 StreetHouseNumber = GetAddressWithouthAppartmentNumber(cpr.Address1),
                 City = cpr.City,
+                EuCcid = GetEuccidNumberBeginning(cpr.CprNumber),
                 Gender = GetGenderFromCprNumber(cpr.CprNumber)
             };
 
         }
 
+        private string GetEuccidNumberBeginning(string cpr)
+        {
+            var birthDate = cpr.Split('-')[0];
+            var dayMonth = birthDate.Substring(0, 4);
+            var yearShort = birthDate.Substring(4, 2);
+            var yearLong = (Int16.Parse(yearShort[0] + "") > 1 ? "19" : "20") + yearShort;
+            return dayMonth + yearLong;
+        }
+
+        private string GetCprNumberBeginning(string euccid)
+        {
+            return euccid.Substring(0,4) + euccid.Substring(6,2);
+        }
+
         private string GetGenderFromCprNumber(string cpr)
         {
-            var lastDigit = Int16.Parse(cpr.ToCharArray()[cpr.Length - 1] + "");
+            var lastDigit = Int16.Parse(cpr[cpr.Length - 1] + "");
             return lastDigit % 2 == 0 ? "female" : "male";
         }
         private string GetApartmentNumberFromCprAddress(string address)

@@ -12,6 +12,11 @@ namespace EUCCID
     {
         static void Main(string[] args)
         {
+            TestTranslator();
+        }
+
+        private static void TestTranslator()
+        {
             var cpr = new CPR()
             {
                 FirstName = "Firstname",
@@ -19,7 +24,7 @@ namespace EUCCID
                 City = "City",
                 Address1 = "Streetname 4, 5",
                 PostalCode = 9400,
-                CprNumber = "1203454313"
+                CprNumber = "120301-4313"
             };
 
             var euccit = new Models.EUCCID()
@@ -31,16 +36,16 @@ namespace EUCCID
                 ApartmentNumber = "2a",
                 CurrentCountry = "Denmark",
                 BirthCountry = "Russia",
-                EuCcid = "1231231242423",
+                EuCcid = "12011991-123456",
                 Gender = "Male"
             };
 
-            var trCpr = new Translator.EuccidtoCprTranslator().CprToEuccid(cpr);
-            var trEu = new Translator.EuccidtoCprTranslator().EuCcidToCpr(euccit);
+            var trCpr = new Translator.EuccidCprTranslator().CprToEuccid(cpr);
 
             Console.WriteLine(cpr);
             Console.WriteLine(trCpr);
             Console.WriteLine();
+            var trEu = new Translator.EuccidCprTranslator().EuCcidToCpr(euccit);
             Console.WriteLine(euccit);
             Console.WriteLine(trEu);
         }
